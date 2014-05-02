@@ -42,6 +42,7 @@ class ScheduleShell(cmd.Cmd):
         if not arg:
              print "Usage: go <date>"
         else:
+            print "Correct command"
             
 
         
