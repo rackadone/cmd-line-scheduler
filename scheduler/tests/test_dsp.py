@@ -1,69 +1,38 @@
+import unittest
 import sys
 import os
 sys.path.insert(0, os.path.abspath('..'))
 from utils.date_string_parse import DateStringParser
 
+class TestDateStringParser (unittest.TestCase):
+    def test_slash_format(self):
+        # Test mm/dd/yy
+        self.assertTrue(DateStringParser.parse("12/12/98"))
+        # Test mm/dd/YYYY
+        self.assertTrue(DateStringParser.parse("12/12/2014"))
 
-print "====TEST SLASH FORMAT===="
-print "Test Case 1"
-DateStringParser.parse("12/12/98")
-print "Test Case 2"
-DateStringParser.parse("12/12/2014")
-print "Test Case 3"
-DateStringParser.parse("12/12/20")
-print "Test Case 4"
-DateStringParser.parse("12/12/50")
-print "Test Case 5"
-DateStringParser.parse("12/12/60")
-print "Test Case 6"
-DateStringParser.parse("12/12/70")
-print "Test Case 7"
-DateStringParser.parse("12/12/80")
-print "Test Case 8"
-DateStringParser.parse("12/12/90")
-print "Test Case 9"
-DateStringParser.parse("12/12/99")
-print "Test Case 10"
-DateStringParser.parse("12/12/992")
-print "Test Case 11"
-DateStringParser.parse("122/12/992")
-print "Test Case 12"
-DateStringParser.parse("12/122/99")
-print "Test Case 13"
-DateStringParser.parse("121312312")
-print "Test Case 14"
-DateStringParser.parse("efefd")
-print "Test Case 15"
-DateStringParser.parse("1989/29/24")
+        # Should Fail
+        self.assertFalse(DateStringParser.parse("12/12/1"))
+        self.assertFalse(DateStringParser.parse("12/12/988"))
 
-print "====TEST DASH FORMAT===="
-print "Test Case 1"
-DateStringParser.parse("12-12-98")
-print "Test Case 2"
-DateStringParser.parse("12-12-2014")
-print "Test Case 3"
-DateStringParser.parse("12-12-20")
-print "Test Case 4"
-DateStringParser.parse("12-12-50")
-print "Test Case 5"
-DateStringParser.parse("12-12-60")
-print "Test Case 6"
-DateStringParser.parse("12-12-70")
-print "Test Case 7"
-DateStringParser.parse("12-12-80")
-print "Test Case 8"
-DateStringParser.parse("12-12-90")
-print "Test Case 9"
-DateStringParser.parse("12-12-99")
-print "Test Case 10"
-DateStringParser.parse("12-12-992")
-print "Test Case 11"
-DateStringParser.parse("122-12-992")
-print "Test Case 12"
-DateStringParser.parse("12-122-99")
-print "Test Case 13"
-DateStringParser.parse("121312312")
-print "Test Case 14"
-DateStringParser.parse("efefd")
-print "Test Case 15"
-DateStringParser.parse("1989-29-24")
+    def test_dash_format(self):
+        # Test mm-dd-yy
+        self.assertTrue(DateStringParser.parse("12-12-98"))
+        # Test mm-dd-YYYY
+        self.assertTrue(DateStringParser.parse("12-12-2014"))
+
+        # Should Fail
+        self.assertFalse(DateStringParser.parse("12-12-1"))
+        self.assertFalse(DateStringParser.parse("12-12-988"))            
+
+    def test_extra_strings(self):
+        self.assertFalse(DateStringParser.parse("This is a date string"))
+        self.assertFalse(DateStringParser.parse(""))
+        self.assertFalse(DateStringParser.parse(None))
+
+    def test_leap_year(self):
+        self.assertFalse(DateStringParser.parse("2-29-2014"))
+        self.assertTrue(DateStringParser.parse("2-29-2016"))
+
+if __name__ == '__main__' :
+    unittest.main()

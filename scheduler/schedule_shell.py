@@ -1,5 +1,9 @@
 from datetime import date
 from schedule import Schedule
+
+from utils.global_values import Globals
+from utils.date_string_parse import DateStringParser
+
 import os, cmd, sys
 from input_check import *
 
@@ -14,7 +18,7 @@ class ScheduleShell(cmd.Cmd):
         self.day = today_date.day
 
         self.intro = 'Welcome to the scheduler shell. Type help or ? to list commands. (' + str(self.year) + '-' + str(self.month) + '-' + str(self.day) + ')\n'
-        self.prompt = 'SCH$(' + str(self.year) + '-' + str(self.month) + '-' + str(self.day) +')>>'
+        self.prompt = 'SCH$(' + Globals.MONTH_DICT[self.month] + '-' + str(self.day) + '-' + str(self.year) +')>>'
         self.schedule = Schedule(self.year)
         self.ordering = 'middle' # Endian
 
@@ -42,8 +46,13 @@ class ScheduleShell(cmd.Cmd):
         if not arg:
              print "Usage: go <date>"
         else:
-            print "Correct command"
-            
+            date_obj = DateStringParser.parse(arg)
+            if (date_obj):
+                print "Correct command"
+            else:
+                print "Invalid date, please enter a date in the following format: \n"
+                print "    go mm/dd/yy"
+                print "    go mm/dd/YYYY"
 
         
 
