@@ -10,6 +10,7 @@ def suite():
         'test_dash_format',
         'test_extra_strings',
         'test_leap_year',
+        'test_get_ordinal',
     ]
     for tc in date_string_parser_tests:
         suite.addTest(TestDateStringParser(tc))

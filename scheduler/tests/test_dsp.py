@@ -34,5 +34,11 @@ class TestDateStringParser (unittest.TestCase):
         self.assertFalse(DateStringParser.parse("2-29-2014"))
         self.assertTrue(DateStringParser.parse("2-29-2016"))
 
+    def test_get_ordinal(self):
+        self.assertEqual(DateStringParser.get_ordinal(1), "1st")
+        self.assertEqual(DateStringParser.get_ordinal(2), "2nd")
+        self.assertEqual(DateStringParser.get_ordinal(3), "3rd")
+        self.assertEqual(DateStringParser.get_ordinal(4), "4th")
+
 if __name__ == '__main__' :
     unittest.main()

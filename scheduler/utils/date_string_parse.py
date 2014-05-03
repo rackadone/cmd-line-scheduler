@@ -61,3 +61,11 @@ class DateStringParser:
         """ On success, returns a valid datetime object
         """
         return datetime.datetime.strptime(date_str, date_pattern)
+
+    @staticmethod
+    def get_ordinal(n):
+        """ Very terse solution to finding ordinals, from 
+            http://codegolf.stackexchange.com/questions/4707/outputting-ordinal-numbers-1st-2nd-3rd#answer-4712
+        """
+        k = n % 10
+        return "%d%s" % (n, "tsnrhtdd"[(n/10%10!=1)*(k<4)*k::4])

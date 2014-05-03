@@ -8,15 +8,15 @@ from utils.storage_manager import StorageManager
 class TestStorageManager (unittest.TestCase):
 
     def tearDown(self):
-        if os.path.isfile("test.json"):
+        if os.path.isfile("schedules/test.json"):
             print "Deleting test.json"
-            os.remove("test.json")
+            os.remove("schedules/test.json")
 
     def test_file_create(self):
         test_storage_manager = StorageManager("test.json")
-        self.assertTrue(os.path.isfile("test.json"))
-        os.remove("test.json")
-        self.assertFalse(os.path.isfile("test.json"))
+        self.assertTrue(os.path.isfile("schedules/test.json"))
+        os.remove("schedules/test.json")
+        self.assertFalse(os.path.isfile("schedules/test.json"))
 
     def test_get_json_object(self):
         test_storage_manager = StorageManager("test.json")
