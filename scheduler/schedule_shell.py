@@ -83,7 +83,6 @@ class ScheduleShell(cmd.Cmd):
             print "There are no events on this day."
 
 
-
     # Exit Command
     def do_exit(self, arg):
         if (arg == "!"):
