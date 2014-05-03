@@ -2,6 +2,7 @@ from datetime import date
 
 from utils.global_values import Globals
 from utils.date_string_parse import DateStringParser
+from utils.storage_manager import StorageManager
 
 import os, cmd
 from input_check import *
@@ -10,21 +11,17 @@ class ScheduleShell(cmd.Cmd):
     def __init__(self):
         cmd.Cmd.__init__(self)
 
-        # Check if schedule file exists. If not, create new schedule
-        #if os.path.isfile(Globals.DEFAULT_SCHEDULE_NAME):
-        #    self.fp = open(Globals.DEFAULT_SCHEDULE_NAME)
-
-
         # Shell Time Variables. Subject to change on user input
         self.current_date = date.today()
-        self.year = today_date.year
-        self.month = today_date.month
-        self.day = today_date.day
+        self.year = self.current_date.year
+        self.month = self.current_date.month
+        self.day = self.current_date.day
 
         self.intro = 'Welcome to the scheduler shell. Type help or ? to list commands.\n'
         self.prompt = 'SCH$(' + Globals.MONTH_DICT_ABBREV[self.month] + '-' + str(self.day) + '-' + str(self.year) +')>>'
-        self.schedule = Schedule(self.year)
-        self.ordering = 'middle' # Endian
+
+        # Establish file storage
+        self.storage_manager = StorageManager()
 
     '''COMMANDS
     '''
@@ -43,29 +40,53 @@ class ScheduleShell(cmd.Cmd):
             else:
                 print "Invalid date, please enter a date in the following format: \n"
                 print "    go mm/dd/yy"
-                print "    go mm/dd/YYYY"        
-
-    def do_set(self, arg):
-        pass
+                print "    go mm/dd/YYYY"
 
     def do_add(self, arg):
-        'Add event to schedule:' # Documentation
+        "'add' is a simple command you enter to add an event to the current date."
 
         # If no arguments, prompt user for each input
         if not arg:
             print "Usage: add <event>"
+        else:
+            json_root = self.storage_manager.get_json_object()
+            target_year = str(self.year)
+            target_month = str(self.month)
+            target_day = str(self.day)
 
+            print "Before entering in json_root"
+            print json_root
 
-        # Need to Parse Argument
-        #self.schedule.add_event('January', 1, '12:30', 'Lunch with Them')
+            if target_year not in json_root:
+                print "need to create new year"
+                print json_root
+
+                json_root[target_year] = {}
+
+            if target_month not in json_root[target_year]:
+                print "need to create new month"
+                print json_root
+
+                json_root[target_year][target_month] = {}
+
+            if target_day not in json_root[target_year][target_month]:
+                print "need to create new day"
+                print json_root
+
+                json_root[target_year][target_month][target_day] = []
+
+            json_root[target_year][target_month][target_day].append(arg)
+            self.storage_manager.store_json_object(json_root)
+            print "Event has been added"
+            print json_root
+
 
     # Exit Command
-    # Save Changes to xml file
     def do_exit(self, arg):
         if (arg == "!"):
+            # TODO: implement if needed
             return True
         else:
-            self.schedule.write_to_file()
             return True
 
     '''HELPERS

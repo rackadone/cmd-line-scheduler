@@ -13,9 +13,9 @@ class StorageManager:
         """ Creates a specific storage file.
         """
         if not file_name:
-            self.file_name = "default.json"    
+            self.file_name = "schedules/default.json"
         else:
-            self.file_name = file_name
+            self.file_name = "schedules/" + file_name
         if not os.path.isfile(self.file_name):
             fp = open(self.file_name, 'w+')
             # By default, the file is first initialized with
