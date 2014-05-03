@@ -15,6 +15,21 @@ class Globals:
         12 : "December",
     }
 
+    MONTH_DICT_ABBREV = {
+        1 : "Jan",
+        2 : "Feb",
+        3 : "Mar",
+        4 : "Apr",
+        5 : "May",
+        6 : "Jun",
+        7 : "Jul",
+        8 : "Aug",
+        9 : "Sep",
+        10 : "Oct",
+        11 : "Nov",
+        12 : "Dec",
+    }
+
     COMMON_YEAR_NUM_DAYS = {
         1 : 31,
         2 : 28,
@@ -29,3 +44,4 @@ class Globals:
         11 : 30,
         12 : 31,
     }
+    DEFAULT_SCHEDULE_NAME = "default.json"
