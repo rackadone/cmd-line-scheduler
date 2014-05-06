@@ -11,6 +11,10 @@ def suite():
         'test_extra_strings',
         'test_leap_year',
         'test_get_ordinal',
+        'test_parse_day',
+        'test_parse_month_long',
+        'test_parse_month_short',
+        'test_parse_year',
     ]
     for tc in date_string_parser_tests:
         suite.addTest(TestDateStringParser(tc))

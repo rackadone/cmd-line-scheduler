@@ -28,13 +28,14 @@ class ScheduleShell(cmd.Cmd):
 
     def do_go(self, arg):
         # help documentation
-        "'go' is a simple command you enter to set the current date.\n"\
-        "On initialization the date is set to the current date.\n\n"\
+        """'go' is a simple command you enter to set the current date.
+        On initialization the date is set to the current date.
+        """
 
         if not arg:
              print "Usage: go <date>"
         else:
-            date_obj = DateStringParser.parse(arg)
+            date_obj = DateStringParser.parse(arg, self.year, self.month, self.day)
             if (date_obj):
                 self.set_date(date_obj)
             else:
@@ -69,6 +70,8 @@ class ScheduleShell(cmd.Cmd):
             print "Event has been added"
 
     def do_events(self, arg):
+        """ List events of the day.
+        """
         json_root = self.storage_manager.get_json_object()
         target_year = str(self.year)
         target_month = str(self.month)
@@ -77,7 +80,7 @@ class ScheduleShell(cmd.Cmd):
             event_list = json_root[target_year][target_month][target_day]
             print "These are the events of " + Globals.MONTH_DICT[self.month] + " " + DateStringParser.get_ordinal(self.day) + ", " + target_year + ":"
             for i, val in enumerate(event_list):
-                print val
+                print "   -" + val
 
         except Exception as e:
             print "There are no events on this day."

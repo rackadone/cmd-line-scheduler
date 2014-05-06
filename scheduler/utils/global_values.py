@@ -15,6 +15,21 @@ class Globals:
         12 : "December",
     }
 
+    MONTH_DICT_REVERSE = {
+        "january" : 1,
+        "february" : 2,
+        "march" : 3,
+        "april" : 4,
+        "may" : 5,
+        "june" : 6,
+        "july" : 7,
+        "august" : 8,
+        "september" : 9,
+        "october" : 10,
+        "november" : 11,
+        "December" : 12,
+    }
+
     MONTH_DICT_ABBREV = {
         1 : "Jan",
         2 : "Feb",
@@ -29,6 +44,24 @@ class Globals:
         11 : "Nov",
         12 : "Dec",
     }
+
+    MONTH_DICT_REVERSE_ABBREV = {
+        "jan" : 1,
+        "feb" : 2,
+        "mar" : 3,
+        "apr" : 4,
+        "may" : 5,
+        "jun" : 6,
+        "jul" : 7,
+        "aug" : 8,
+        "sep" : 9,
+        "oct" : 10,
+        "nov" : 11,
+        "dec" : 12,
+    }
+
+    MONTH_SET = set(["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"])
+    MONTH_SET_ABBREV = set(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"])
 
     COMMON_YEAR_NUM_DAYS = {
         1 : 31,
