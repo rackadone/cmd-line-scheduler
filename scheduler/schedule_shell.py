@@ -4,7 +4,7 @@ from utils.global_values import Globals
 from utils.date_string_parse import DateStringParser
 from utils.storage_manager import StorageManager
 
-import os, cmd
+import cmd
 from input_check import *
 
 class ScheduleShell(cmd.Cmd):
@@ -28,9 +28,8 @@ class ScheduleShell(cmd.Cmd):
 
     def do_go(self, arg):
         # help documentation
-        """'go' is a simple command you enter to set the current date.
-        On initialization the date is set to the current date.
-        """
+        "'go' is a simple command you enter to set the current date.\n"\
+        "On initialization the date is set to the current date.\n\n"\
 
         if not arg:
              print "Usage: go <date>"
@@ -82,7 +81,7 @@ class ScheduleShell(cmd.Cmd):
             for i, val in enumerate(event_list):
                 print "   -" + val
 
-        except Exception as e:
+        except Exception:
             print "There are no events on this day."
 
 

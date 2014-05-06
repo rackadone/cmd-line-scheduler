@@ -26,25 +26,25 @@ class DateStringParser:
         # Match day (integer)
         try:
             match_day = 1 <= int(date_str) <= 31
-        except Exception as e:
+        except Exception:
             match_day = False
 
         # Match month (string)
         try:
             match_month_long = (date_str).lower() in Globals.MONTH_SET
-        except Exception as e:
+        except Exception:
             match_month_long = False
 
         # Match month shorthand (string)
         try:
             match_month_short = (date_str).lower() in Globals.MONTH_SET_ABBREV
-        except Exception as e:
+        except Exception:
             match_month_short = False
 
         # Match year
         try:
             match_year = len(date_str) == 4 and  1900 < int(date_str) < datetime.MAXYEAR
-        except Exception as e:
+        except Exception:
             match_year = False
 
         ''' Branch out to determine the date the user wants
@@ -59,7 +59,7 @@ class DateStringParser:
                 try:
                     return DateStringParser.validate_date_string(match_slash.group(1), date_pattern)
                     break
-                except Exception as e:
+                except Exception:
                     continue
             else:
                 print "Slash Date Format is Unknown."
@@ -74,7 +74,7 @@ class DateStringParser:
                 try:
                     return DateStringParser.validate_date_string(match_dash.group(1), date_pattern)
                     break
-                except Exception as e:
+                except Exception:
                     continue
             else:
                 print "Dash Date Format is Unknown."
@@ -83,7 +83,7 @@ class DateStringParser:
         elif (match_day):
             try:
                 return datetime.datetime(current_year, current_month, int(date_str))
-            except Exception as e:
+            except Exception:
                 print "This day is not valid at the year and month"
                 return None
 
@@ -91,7 +91,7 @@ class DateStringParser:
         elif (match_month_long):
             try:
                 return datetime.datetime(current_year, Globals.MONTH_DICT_REVERSE[date_str.lower()], current_day)
-            except Exception as e:
+            except Exception:
                 print "This month is not valid at the year and month"
                 return None
 
@@ -99,7 +99,7 @@ class DateStringParser:
         elif (match_month_short):
             try:
                 return datetime.datetime(current_year, Globals.MONTH_DICT_REVERSE_ABBREV[date_str.lower()], current_day)
-            except Exception as e:
+            except Exception:
                 print "This month is not valid at the year and day"
                 return None
 
