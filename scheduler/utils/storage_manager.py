@@ -1,9 +1,9 @@
-'''
-StorageManager class
-
-* This object handles all persistent file storage at a single file
-
-'''
+# =====================================
+# file name: storage_manager.py
+#
+# This object handles all persistent file
+# storage at a single file
+# =====================================
 
 import json
 import os

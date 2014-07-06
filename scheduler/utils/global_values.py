@@ -1,3 +1,9 @@
+# =====================================
+# file name: global_values.py
+#
+# This class holds global immutable values
+# =====================================
+
 class Globals:
     # January February March April May June July August September October November December
     MONTH_DICT = {

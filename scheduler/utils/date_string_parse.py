@@ -1,12 +1,13 @@
-'''
-Date String Parser class
+# =====================================
+# file name: date_string_parse.py
+#
+# This class holds methods that parse 
+# The datetime object takes care of leap year consideration
+# =====================================
 
-* The datetime object takes care of leap year consideration
-
-'''
-
-import re
-import datetime
+from re import search
+from datetime import MAXYEAR
+from datetime import datetime
 from global_values import Globals
 
 class DateStringParser:
@@ -20,8 +21,8 @@ class DateStringParser:
 
         '''Try matching argument to possible valid date_strings
         '''
-        match_slash = re.search(r'(\d+/\d+/\d+)', date_str)
-        match_dash = re.search(r'(\d+-\d+-\d+)', date_str)
+        match_slash = search(r'(\d+/\d+/\d+)', date_str)
+        match_dash = search(r'(\d+-\d+-\d+)', date_str)
 
         # Match day (integer)
         try:
@@ -43,7 +44,7 @@ class DateStringParser:
 
         # Match year
         try:
-            match_year = len(date_str) == 4 and  1900 < int(date_str) < datetime.MAXYEAR
+            match_year = len(date_str) == 4 and  1900 < int(date_str) < MAXYEAR
         except Exception:
             match_year = False
 
@@ -82,7 +83,7 @@ class DateStringParser:
         # CASE 3: date string is just a simple integer in the range of 1 ~ 31
         elif (match_day):
             try:
-                return datetime.datetime(current_year, current_month, int(date_str))
+                return datetime(current_year, current_month, int(date_str))
             except Exception:
                 print "This day is not valid at the year and month"
                 return None
@@ -90,7 +91,7 @@ class DateStringParser:
         # CASE 4: date string is a month name, such as "january" or "January" or JANUARY"
         elif (match_month_long):
             try:
-                return datetime.datetime(current_year, Globals.MONTH_DICT_REVERSE[date_str.lower()], current_day)
+                return datetime(current_year, Globals.MONTH_DICT_REVERSE[date_str.lower()], current_day)
             except Exception:
                 print "This month is not valid at the year and month"
                 return None
@@ -98,7 +99,7 @@ class DateStringParser:
         # CASE 5: date string is a month name abbreviation, such as "jan" or "Jan" or JAN"
         elif (match_month_short):
             try:
-                return datetime.datetime(current_year, Globals.MONTH_DICT_REVERSE_ABBREV[date_str.lower()], current_day)
+                return datetime(current_year, Globals.MONTH_DICT_REVERSE_ABBREV[date_str.lower()], current_day)
             except Exception:
                 print "This month is not valid at the year and day"
                 return None
@@ -106,11 +107,10 @@ class DateStringParser:
         # CASE 6: date string is a year string such as "1998" or "2014"
         elif (match_year):
             try:
-                return datetime.datetime(int(date_str), current_month, current_day)
+                return datetime(int(date_str), current_month, current_day)
             except Exception:
                 print "This year is not valid at the month and day"
                 return None
-
 
         # CASE N: Enter other cases here
         else:
@@ -121,7 +121,7 @@ class DateStringParser:
     def validate_date_string(date_str, date_pattern):
         """ On success, returns a valid datetime object
         """
-        return datetime.datetime.strptime(date_str, date_pattern)
+        return datetime.strptime(date_str, date_pattern)
 
     @staticmethod
     def get_ordinal(n):
